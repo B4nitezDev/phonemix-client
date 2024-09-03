@@ -51,8 +51,7 @@ const DragNdrop = ({
             <div>
               <p>Drag and drop your files here</p>
               <p>
-                Limit 15MB per file. Supported files: .PDF, .DOCX, .PPTX, .TXT,
-                .XLSX
+                Limit 15MB per file. Supported files: .WAW o .MP3
               </p>
             </div>
           </div>

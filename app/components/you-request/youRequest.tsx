@@ -86,23 +86,29 @@ export function YouRequest(): React.JSX.Element {
           ></textarea>
         </div>
 
-        <div className="flex gap-2 p-2 flex-wrap">
+        <div className="flex justify-center items-center gap-2 pt-2 flex-wrap">
           <div>
-            <p className="text-white">Graba un audio</p>
-            <button className="bg-[#4a90e2] text-white px-4 py-2 rounded">Grabar</button>
+            <p className="text-white">Graba un audio 🎙</p>
+            <div className="flex justify-center items-center pt-3">
+              <button className="bg-[#4a90e2]/60 text-[12px] text-white px-8 py-2 rounded">
+                Grabar
+              </button>
+            </div>
           </div>
           ó
           <div>
-            <DragNdrop onFilesSelected={setFiles}/>
+            <DragNdrop onFilesSelected={setFiles} />
           </div>
         </div>
 
-        <button
-          type="button"
-          className="bg-[#1E293B] text-white text-sm p-2 px-14 rounded-xl mt-5"
-        >
-          Obtener Feedback 😉
-        </button>
+        <div className="flex items-center justify-center">
+          <button
+            type="button"
+            className="bg-[#1E293B] text-white text-sm p-2 px-14 rounded-xl mt-5"
+          >
+            Obtener Feedback 😉
+          </button>
+        </div>
       </div>
     </section>
   );
