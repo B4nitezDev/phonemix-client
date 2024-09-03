@@ -9,7 +9,7 @@ export function YouRequest(): React.JSX.Element {
   const [isRecording, setIsRecording] = React.useState<boolean>(false);
   const [audioUrl, setAudioUrl] = React.useState<string>("");
   const [audioBlob, setAudioBlob] = React.useState<Blob | null>(null);
-  const mediaRecorderRef = React.useRef(null);
+  const mediaRecorderRef = React.useRef<MediaRecorder | null>(null);
   const [text, setText] = React.useState<string>("")
   const [selectedLanguageTo, setSelectedLanguageTo] = React.useState<string>("");
 
