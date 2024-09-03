@@ -1,0 +1,143 @@
+.drag-drop {
+    background: #1e293b; /* Color de fondo para que coincida con tu esquema de colores */
+    border: 1px solid #2d3748; /* Color del borde similar a var(--border-color) */
+    border-radius: 8px;
+    padding: 1rem; /* Añadido padding para más espacio interno */
+    color: #fff; /* Texto blanco para contrastar con el fondo oscuro */
+  }
+  
+  .document-uploader {
+    border: 2px dashed #4a90e2; /* Color azul para el borde de los archivos */
+    background-color: #2b2d37; /* Fondo oscuro para el área de carga */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s; /* Transición suave para el cambio de borde */
+    width: 175px; /* Ajusta el ancho deseado */
+    height: 125px; /* Ajusta la altura deseada */
+    &.active {
+      border-color: #6dc24b; /* Color verde cuando se active */
+    }
+  
+    .upload-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+  
+      svg {
+        font-size: 36px;
+        margin-right: 1rem;
+        color: #6dc24b; /* Color de los íconos */
+      }
+  
+      div {
+        p {
+          margin: 0;
+          font-size: 8px;
+          color: #fff; /* Texto blanco */
+        }
+  
+        p:first-child {
+          font-weight: bold;
+        }
+      }
+    }
+  
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      height: 30vh;
+      &__container {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+      }
+    }
+  
+    .file-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      border: 1px solid #2d3748; /* Color del borde para que coincida con tu esquema */
+      border-radius: 8px;
+      background-color: #2b2d37; /* Fondo oscuro para los ítems de archivo */
+  
+      .file-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        flex: 1;
+  
+        p {
+          margin: 0;
+          font-size: 8px;
+          color: #fff; /* Texto blanco */
+        }
+      }
+  
+      .file-actions {
+        cursor: pointer;
+  
+        svg {
+          font-size: 12px;
+          color: #888; /* Color gris para los íconos */
+        }
+  
+        &:hover {
+          svg {
+            color: #d44; /* Color rojo para el hover */
+          }
+        }
+      }
+    }
+  
+    .browse-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border: 1px solid #2d3748; /* Color del borde */
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #4a90e2; /* Color de fondo del botón */
+      color: #fff; /* Texto blanco */
+      transition: background-color 0.3s; /* Transición suave para el hover */
+      height: 12px;
+      font-size: 12;
+
+      &:hover {
+        background-color: transparent;
+        border-color: #4a90e2; /* Mantener color del borde en hover */
+        color: #4a90e2; /* Cambiar color del texto en hover */
+      }
+    }
+  
+    .browse-btn-parrafo {
+        font-size: 8px;
+    }
+
+    .success-file {
+      display: flex;
+      align-items: center;
+      color: #6dc24b;
+  
+      p {
+        margin: 0;
+        font-size: 8px;
+        font-weight: bold;
+      }
+    }
+  
+    input[type="file"] {
+      display: none;
+    }
+  }
+  
