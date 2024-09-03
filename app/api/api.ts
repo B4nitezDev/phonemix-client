@@ -28,7 +28,7 @@ export const API = {
                 method: 'POST',
                 headers: {
                     'accept': 'application/json',
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
                 },
                 body: formData
             });
