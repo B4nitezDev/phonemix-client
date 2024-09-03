@@ -5,7 +5,7 @@ import DragNdrop from "./components/dragAndDrop";
 
 export function YouRequest(): React.JSX.Element {
   const [languages, setLanguages] = React.useState<string[]>([]);
-  const [files, setFiles] = React.useState<File[]>([]);
+  const [file, setFile] = React.useState<File | null>(null);
   const [isRecording, setIsRecording] = React.useState<boolean>(false);
   const [audioUrl, setAudioUrl] = React.useState<string>("");
   const [audioBlob, setAudioBlob] = React.useState<Blob | null>(null);
@@ -67,11 +67,18 @@ export function YouRequest(): React.JSX.Element {
     setSelectedLanguageTo(event.target.value);
   };
 
-  const geetFeedback = async(): Promise<void> => {
-    if (!audioBlob) return;
+  const geetFeedback = async (): Promise<void> => {
+    if (!audioBlob && !file) return;
 
     const formData = new FormData();
-    formData.append("audio", audioBlob, "recording.wav");
+    if (file) {
+      console.log(file)
+      formData.append("audio", file);
+    } else if(audioBlob) {
+      formData.append("audio", audioBlob, "recording.wav");
+    } else {
+      return;
+    }
     formData.append("text", text);
     formData.append("language", selectedLanguageTo)
 
@@ -87,6 +94,7 @@ export function YouRequest(): React.JSX.Element {
           <select
             name="SelectLanguage"
             className="bg-[#1E293B] text-white/50 w-[447px] h-[47px] p-1 items-center rounded-sm"
+            value={""}
           >
             <option
               className="bg-transparent w-25 text-white/50"
@@ -116,7 +124,7 @@ export function YouRequest(): React.JSX.Element {
             className="bg-[#1E293B] text-white/50 w-[447px] h-[47px] p-1 items-center rounded-sm"
             value={selectedLanguageTo}
             onChange={handleLanguageTo}
-         >
+          >
             <option
               className="bg-transparent w-25 text-white/50"
               disabled
@@ -163,7 +171,7 @@ export function YouRequest(): React.JSX.Element {
           </div>
           ó
           <div>
-            <DragNdrop onFilesSelected={setFiles} />
+            <DragNdrop onFilesSelected={setFile} />
           </div>
         </div>
 
