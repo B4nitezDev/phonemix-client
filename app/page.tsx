@@ -7,6 +7,7 @@ export default function Home() {
       <h1 className="text-white text-[24px]">Phonemix | AI Tools</h1>
       <div className="flex flex-wrap items-center gap-20 pt-[50px]">
       <YouRequest/>
+      <div className="w-px bg-gray-600 h-[600px]"></div> {/* Línea divisoria */}
       <YouResponse/>
       </div>
     </main>
