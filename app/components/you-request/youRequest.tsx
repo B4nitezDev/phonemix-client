@@ -2,6 +2,7 @@
 import { API } from "@/app/api/api";
 import React from "react";
 import DragNdrop from "./components/dragAndDrop";
+import { ValidationMessage } from "@/app/interfaces/response";
 
 export function YouRequest(): React.JSX.Element {
   const [languages, setLanguages] = React.useState<string[]>([]);
@@ -10,8 +11,10 @@ export function YouRequest(): React.JSX.Element {
   const [audioUrl, setAudioUrl] = React.useState<string>("");
   const [audioBlob, setAudioBlob] = React.useState<Blob | null>(null);
   const mediaRecorderRef = React.useRef<MediaRecorder | null>(null);
-  const [text, setText] = React.useState<string>("")
-  const [selectedLanguageTo, setSelectedLanguageTo] = React.useState<string>("");
+  const [text, setText] = React.useState<string>("");
+  const [language, setLanguage] = React.useState<string>("");
+  const [textValidation, setTextValidation] = React.useState<string>("");
+  const [textCorrect, setTextCorrect] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     async function fetchLanguages() {
@@ -24,6 +27,44 @@ export function YouRequest(): React.JSX.Element {
     }
     fetchLanguages();
   }, []);
+
+  React.useEffect(() => {
+    const textFunctionValidate = async (): Promise<void> => {
+      const response: Promise<string> =
+        API.FEEDBACK.GET_VALIDATION({
+          text,
+          language,
+        })
+          .then((result: ValidationMessage): string => result.validation_message.toString())
+          .catch((e: any): string => {
+            return "";
+          });
+
+      if (await response) {
+        const text = (await response);
+
+        if(text == "The text is in it, but es was expected.") {
+          setTextCorrect(true);
+          //console.log(text)
+          setTextValidation(text);
+          return; 
+        } else {
+          setTextCorrect(false);
+          //console.log(text)
+          setTextValidation(text);
+          return; 
+        }
+      }
+    };
+
+    if (text.split(" ").length > 0 && language.length > 1) {
+      textFunctionValidate()
+       .then((response: void) => response)
+       .catch((error) => error);
+    } else {
+      return;
+    }
+  }, [text]);
 
   const startRecording = async () => {
     try {
@@ -64,7 +105,7 @@ export function YouRequest(): React.JSX.Element {
   };
 
   const handleLanguageTo = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLanguageTo(event.target.value);
+    setLanguage(event.target.value);
   };
 
   const geetFeedback = async (): Promise<void> => {
@@ -72,19 +113,19 @@ export function YouRequest(): React.JSX.Element {
 
     const formData = new FormData();
     if (file) {
-      console.log(file)
+      console.log(file);
       formData.append("audio", file);
-    } else if(audioBlob) {
+    } else if (audioBlob) {
       formData.append("audio", audioBlob, "recording.wav");
     } else {
       return;
     }
     formData.append("text", text);
-    formData.append("language", selectedLanguageTo)
+    formData.append("language", language);
 
     const response = await API.FEEDBACK.GET_FEEDBACK(formData);
     console.info(response);
-  }
+  };
 
   return (
     <section className="flex flex-col items-center justify-center p-6">
@@ -122,13 +163,14 @@ export function YouRequest(): React.JSX.Element {
           <select
             name="SelectLanguage"
             className="bg-[#1E293B] text-white/50 w-[447px] h-[47px] p-1 items-center rounded-sm"
-            value={selectedLanguageTo}
+          
             onChange={handleLanguageTo}
           >
             <option
               className="bg-transparent w-25 text-white/50"
               disabled
               selected
+              value={""}
             >
               Elige un idioma
             </option>
@@ -155,6 +197,11 @@ export function YouRequest(): React.JSX.Element {
             value={text}
             onChange={handleText}
           ></textarea>
+          <p className={`p-3 font-serif ${textCorrect ? 'text-emerald-700' : 'text-red-600 '}`}>
+            {
+              textValidation?.split('')?.length > 3 && language !== "" ? textValidation : ''
+            }
+          </p>
         </div>
 
         <div className="flex justify-center items-center gap-2 pt-2 flex-wrap">
@@ -169,7 +216,9 @@ export function YouRequest(): React.JSX.Element {
               </button>
             </div>
           </div>
+          <p className="text-white/70  text-[21px] m-[15px]">
           ó
+          </p>
           <div>
             <DragNdrop onFilesSelected={setFile} />
           </div>
