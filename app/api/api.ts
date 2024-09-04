@@ -1,4 +1,4 @@
-import { LangValidationRespose, ValidationMessage } from "../interfaces/response";
+import { ValidationMessage, GetFeedbackResponse } from "../interfaces/response";
 import { TextValidation } from '../interfaces/requests';
 
 export const API = {
@@ -10,7 +10,7 @@ export const API = {
 
             return await response.json();
         },
-        GET_VALIDATION: async ({text, language}: TextValidation): Promise<LangValidationRespose> => {
+        GET_VALIDATION: async ({text, language}: TextValidation): Promise<ValidationMessage> => {
             const response = await fetch("http://ec2-3-143-225-37.us-east-2.compute.amazonaws.com:8000/lang_validation", {
                 method: "POST",
                 headers: {
@@ -24,8 +24,8 @@ export const API = {
         
             return response.json();
         },
-        GET_FEEDBACK: async (formData: FormData) => {
-            const response = await fetch('http://ec2-3-143-225-37.us-east-2.compute.amazonaws.com:8000/get_feedback', {
+        GET_FEEDBACK: async (formData: FormData): Promise<GetFeedbackResponse> => {
+            const response: Response = await fetch('http://ec2-3-143-225-37.us-east-2.compute.amazonaws.com:8000/get_feedback', {
                 method: 'POST',
                 headers: {
                     'accept': 'application/json',

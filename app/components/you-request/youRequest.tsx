@@ -2,9 +2,13 @@
 import { API } from "@/app/api/api";
 import React from "react";
 import DragNdrop from "./components/dragAndDrop";
-import { ValidationMessage } from "@/app/interfaces/response";
+import { GetFeedbackResponse, ValidationMessage } from "@/app/interfaces/response";
 
-export function YouRequest(): React.JSX.Element {
+interface Props {
+  setFeedback : (feedback: GetFeedbackResponse) => void
+}
+
+export function YouRequest({setFeedback}: Props): React.JSX.Element {
   const [languages, setLanguages] = React.useState<string[]>([]);
   const [file, setFile] = React.useState<File | null>(null);
   const [isRecording, setIsRecording] = React.useState<boolean>(false);
@@ -123,8 +127,8 @@ export function YouRequest(): React.JSX.Element {
     formData.append("text", text);
     formData.append("language", language);
 
-    const response = await API.FEEDBACK.GET_FEEDBACK(formData);
-    console.info(response);
+    const response: GetFeedbackResponse = await API.FEEDBACK.GET_FEEDBACK(formData);
+    setFeedback(response)
   };
 
   return (
