@@ -22,7 +22,9 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
   const [language, setLanguage] = React.useState<string>("");
   const [textValidation, setTextValidation] = React.useState<string>("");
   const [textCorrect, setTextCorrect] = React.useState<boolean>(false);
-  const [isRequest, setIsRequest] = React.useState<boolean>(false)
+  const [isRequest, setIsRequest] = React.useState<boolean>(false);
+  const [isError, setIsError] = React.useState<string>("");
+  const [showError, setShowError] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     async function fetchLanguages() {
@@ -73,7 +75,20 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
     } else {
       return;
     }
-  }, [text]);
+  }, [text, language]);
+
+  React.useEffect(() => {
+    if (showError) {
+      const timer = setTimeout(() => {
+        setShowError(false);
+      }, 5000);
+
+      return () => {
+        //setShowError(false)
+        clearTimeout(timer)
+      };
+    }
+  }, [showError]);
 
   const startRecording = async () => {
     try {
@@ -119,7 +134,13 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
   };
 
   const geetFeedback = async (): Promise<void> => {
-    if (!audioBlob || !file || !language || !text) return;
+    setIsRequest(true);
+    if (!audioBlob || !file || !language || !text) {
+      setIsRequest(false);
+      setIsError("Revisa tus inputs");
+      setShowError(true)
+      return;
+    }
 
     const formData = new FormData();
     if (file) {
@@ -137,6 +158,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
       formData
     );
     setFeedback(response);
+    setIsRequest(false);
   };
 
   return (
@@ -153,6 +175,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
               className="bg-transparent w-25 text-white/50"
               disabled
               selected
+              value={""}
             >
               Elige un idioma
             </option>
@@ -219,7 +242,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
           </p>
         </div>
 
-        <div className="flex justify-center items-center gap-2 pt-2 flex-wrap">
+        <div className="flex justify-center items-center gap-2  flex-wrap">
           <div>
             <p className="text-white">Graba un audio 🎙</p>
             <div className="flex justify-center items-center pt-3">
@@ -246,25 +269,27 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
             <DragNdrop onFilesSelected={setFile} />
           </div>
         </div>
-
+        {showError && (
+          <p className={`text-red-600/80 text-[16px] p-0 m-0 ${ showError ? 'hidden' : ''}`}>{isError}</p>
+        )}
         <div className="flex items-center justify-center pb-7">
           {!isRequest ? (
             <button
-            type="button"
-            className="bg-[#1E293B] text-white text-sm p-2 px-14 rounded-xl mt-5"
-            onClick={() => geetFeedback()}
-          >
-            Obtener Feedback 😉
-          </button>
-          ): (
+              type="button"
+              className="bg-[#1E293B] text-white text-sm p-2 px-14 rounded-xl mt-2"
+              onClick={() => geetFeedback()}
+            >
+              Obtener Feedback 😉
+            </button>
+          ) : (
             <button
-            type="button"
-            className="bg-[#1E293B]/30 text-white text-sm p-2 px-14 rounded-xl mt-5"
-            onClick={() => geetFeedback()}
-            disabled
-          >
-            Obtener Feedback 😉
-          </button>
+              type="button"
+              className="bg-[#1E293B]/30 text-white text-sm p-2 px-14 rounded-xl mt-2"
+              onClick={() => geetFeedback()}
+              disabled
+            >
+              Obtener Feedback 😉
+            </button>
           )}
         </div>
       </div>
