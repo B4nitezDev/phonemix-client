@@ -135,7 +135,8 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
 
   const geetFeedback = async (): Promise<void> => {
     setIsRequest(true);
-    if (!audioBlob || !file || !language || !text) {
+    if (!file || !language || !text) {
+      console.log("me Ejecute")
       setIsRequest(false);
       setIsError("Revisa tus inputs");
       setShowError(true);
@@ -281,33 +282,18 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
         <div className="flex items-center justify-center pb-7">
           {!isRequest ? (
             <>
-              {!isRequest ? (
-                <>
-                  <button
-                    type="button"
-                    className="bg-[#1E293B]/80 text-white text-sm p-2 px-14 rounded-xl mt-2"
-                    onClick={() => geetFeedback()}
-                  >
-                    Obtener Feedback 😉
-                  </button>
-                </>
-              ) : (
-                <>
-                  <p className="text-white/50 text-[12px] m-0 t-0">
-                    Cargando ...
-                  </p>
-                </>
-              )}
+              <button
+                type="button"
+                className="bg-[#1E293B]/80 text-white text-sm p-2 px-14 rounded-xl mt-2"
+                onClick={() => geetFeedback()}
+              >
+                Obtener Feedback 😉
+              </button>
             </>
           ) : (
-            <button
-              type="button"
-              className="bg-[#1E293B]/30 text-white text-sm p-2 px-14 rounded-xl mt-2"
-              onClick={() => geetFeedback()}
-              disabled
-            >
-              Obtener Feedback 😉
-            </button>
+            <>
+              <p className="text-white/50 text-[12px] m-0 t-0">Cargando ...</p>
+            </>
           )}
         </div>
       </div>
