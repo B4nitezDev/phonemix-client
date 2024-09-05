@@ -85,7 +85,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
 
       return () => {
         //setShowError(false)
-        clearTimeout(timer)
+        clearTimeout(timer);
       };
     }
   }, [showError]);
@@ -138,7 +138,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
     if (!audioBlob || !file || !language || !text) {
       setIsRequest(false);
       setIsError("Revisa tus inputs");
-      setShowError(true)
+      setShowError(true);
       return;
     }
 
@@ -270,17 +270,35 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
           </div>
         </div>
         {showError && (
-          <p className={`text-red-600/80 text-[16px] p-0 m-0 ${ showError ? 'hidden' : ''}`}>{isError}</p>
+          <p
+            className={`text-red-600/80 text-[16px] p-0 m-0 ${
+              showError ? "hidden" : ""
+            }`}
+          >
+            {isError}
+          </p>
         )}
         <div className="flex items-center justify-center pb-7">
           {!isRequest ? (
-            <button
-              type="button"
-              className="bg-[#1E293B] text-white text-sm p-2 px-14 rounded-xl mt-2"
-              onClick={() => geetFeedback()}
-            >
-              Obtener Feedback 😉
-            </button>
+            <>
+              {!isRequest ? (
+                <>
+                  <button
+                    type="button"
+                    className="bg-[#1E293B]/80 text-white text-sm p-2 px-14 rounded-xl mt-2"
+                    onClick={() => geetFeedback()}
+                  >
+                    Obtener Feedback 😉
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p className="text-white/50 text-[12px] m-0 t-0">
+                    Cargando ...
+                  </p>
+                </>
+              )}
+            </>
           ) : (
             <button
               type="button"
