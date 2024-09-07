@@ -56,7 +56,7 @@ export function YouResponse({ feedback }: Props): React.JSX.Element {
   };
 
   return (
-    <section className="mb-[18%] pt-0">
+    <section className="mb-[8%]">
       <div className="justify-start pb-7">
         <p className="text-white pb-2">Lo que dijiste: 🗣️</p>
         <div className="inline-block p-[10px] rounded-md max-w-[498px] text-white/70 text-pretty text-[12px] bg-[#1E293B]">

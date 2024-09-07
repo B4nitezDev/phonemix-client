@@ -17,7 +17,7 @@ export default function Home() {
         </h1>
         <div className="h-px bg-gray-600 w-[220px]"></div>
       </div>
-      <div className="flex flex-wrap items-center gap-20 pt-[8px]">
+      <div className="flex flex-wrap items-center gap-20 top-0">
         <YouRequest
           setFeedback={(feedback: GetFeedbackResponse) => setFeedback(feedback)}
         />

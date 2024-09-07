@@ -56,26 +56,24 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
 
         if (text == "The text is in it, but es was expected.") {
           setTextCorrect(true);
-          //console.log(text)
           setTextValidation(text);
           return;
         } else {
           setTextCorrect(false);
-          //console.log(text)
           setTextValidation(text);
           return;
         }
       }
     };
 
-    if (text.split(" ").length > 0 && language.length > 1) {
+    if (text.length > 0) {
       textFunctionValidate()
         .then((response: void) => response)
         .catch((error) => error);
     } else {
       return;
     }
-  }, [text, language]);
+  }, [text]);
 
   React.useEffect(() => {
     if (showError) {
@@ -84,7 +82,6 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
       }, 5000);
 
       return () => {
-        //setShowError(false)
         clearTimeout(timer);
       };
     }
@@ -136,7 +133,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
   const geetFeedback = async (): Promise<void> => {
     setIsRequest(true);
     if (!file || !language || !text) {
-      console.log("me Ejecute")
+      console.log("me Ejecute");
       setIsRequest(false);
       setIsError("Revisa tus inputs");
       setShowError(true);
@@ -145,7 +142,6 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
 
     const formData = new FormData();
     if (file) {
-      console.log(file);
       formData.append("audio", file);
     } else if (audioBlob) {
       formData.append("audio", audioBlob, "recording.wav");
@@ -164,34 +160,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
 
   return (
     <section className="flex flex-col items-center justify-center p-">
-      <div className="space-y-6">
-        <div className="justify-start pb-7">
-          <h4 className="text-white text-sm pb-2">¿Qué Idioma Hablas? 🤔</h4>
-          <select
-            name="SelectLanguage"
-            className="bg-[#1E293B] text-white/50 w-[447px] h-[47px] p-1 items-center rounded-sm"
-            value={""}
-          >
-            <option
-              className="bg-transparent w-25 text-white/50"
-              disabled
-              selected
-              value={""}
-            >
-              Elige un idioma
-            </option>
-            {languages?.length > 0 &&
-              languages.map((language) => (
-                <option
-                  className="bg-transparent w-25 text-white/80"
-                  key={language}
-                  value={language}
-                >
-                  {language}
-                </option>
-              ))}
-          </select>
-        </div>
+      <div className="space-y-6 pt-0 mb-10">
         <div className="justify-start pb-7">
           <h4 className="text-white text-sm pb-2">
             ¿En qué Idioma quieres hablar? 😉
@@ -237,9 +206,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
               textCorrect ? "text-emerald-700" : "text-red-600 "
             }`}
           >
-            {textValidation?.split("")?.length > 3 && language !== ""
-              ? textValidation
-              : ""}
+            {textValidation.length > 0 ? textValidation : ""}
           </p>
         </div>
 
