@@ -132,7 +132,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
 
   const geetFeedback = async (): Promise<void> => {
     setIsRequest(true);
-    if (!file || !language || !text) {
+    if (!(!audioBlob || !file) || !language || !text) {
       console.log("me Ejecute");
       setIsRequest(false);
       setIsError("Revisa tus inputs");
