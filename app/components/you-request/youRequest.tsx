@@ -132,7 +132,7 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
 
   const geetFeedback = async (): Promise<void> => {
     setIsRequest(true);
-    if (!(!audioBlob || !file) || !language || !text) {
+    if (!language || !text) {
       console.log("me Ejecute");
       setIsRequest(false);
       setIsError("Revisa tus inputs");
@@ -234,7 +234,13 @@ export function YouRequest({ setFeedback }: Props): React.JSX.Element {
           </div>
           <p className="text-white/70  text-[21px] m-[15px]">ó</p>
           <div>
-            <DragNdrop onFilesSelected={setFile} />
+            {
+              audioBlob != null ? (
+                <p className="text-white/80">Ya tenemos su audio</p>
+              ) : (
+                <DragNdrop onFilesSelected={setFile} />
+              )  }
+            
           </div>
         </div>
         {showError && (
