@@ -1,11 +1,11 @@
 "use client";
-import { API } from "@/app/api/api";
+import { API } from "@api/api";
 import React from "react";
 import DragNdrop from "./components/dragAndDrop";
 import {
   GetFeedbackResponse,
   ValidationMessage,
-} from "@/app/interfaces/response";
+} from "@interfaces/response";
 
 interface Props {
   setFeedback: (feedback: GetFeedbackResponse) => void;

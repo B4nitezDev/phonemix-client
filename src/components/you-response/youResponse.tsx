@@ -1,9 +1,9 @@
 import React from "react";
 import { Suggetions } from "./components/Suggetions";
-import { GetFeedbackResponse } from "@/app/interfaces/response";
+import { GetFeedbackResponse } from "@/src/interfaces/response";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { base64ToBlob } from "@/app/utils/Base64ToBlob";
+import { base64ToBlob } from "@/src/utils/Base64ToBlob";
 interface Props {
   feedback: GetFeedbackResponse | null;
 }
