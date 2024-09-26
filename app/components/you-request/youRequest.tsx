@@ -5,7 +5,7 @@ import DragNdrop from "./components/dragAndDrop";
 import {
   GetFeedbackResponse,
   ValidationMessage,
-} from "@interfaces/response";
+} from "@/app/interfaces/response";
 
 interface Props {
   setFeedback: (feedback: GetFeedbackResponse) => void;

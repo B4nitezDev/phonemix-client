@@ -1,5 +1,5 @@
-import { ValidationMessage, GetFeedbackResponse } from "../../src/interfaces/response";
-import { TextValidation } from "../../src/interfaces/requests";
+import { ValidationMessage, GetFeedbackResponse } from "../interfaces/response";
+import { TextValidation } from "../interfaces/requests";
 
 const URL_BASE: string = "https://phonemix-api-production.up.railway.app";
 

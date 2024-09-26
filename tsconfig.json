@@ -19,8 +19,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@components/*": ["./src/components/*"],
-      "@interfaces/*": ["./src/interfaces/*"],
+      "@components/*": ["./app/components/*"],
+      "@interfaces/*": ["./app/interfaces/*"],
       "@api/*": ["./app/api/*"],
     }
   },

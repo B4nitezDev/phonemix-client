@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { IRegisterUser } from "@interfaces/user";
+import { IRegisterUser } from "@/app/interfaces/user";
 
 export default function SignIn(): React.JSX.Element {
   const [user, setUser] = useState<IRegisterUser>({

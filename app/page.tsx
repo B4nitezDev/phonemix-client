@@ -2,7 +2,7 @@
 import React from "react";
 import { YouRequest } from "@components/you-request/youRequest";
 import { YouResponse } from "@components/you-response/youResponse";
-import { GetFeedbackResponse } from "@interfaces/response";
+import { GetFeedbackResponse } from "@/app/interfaces/response";
 
 export default function Home() {
   const [feedback, setFeedback] = React.useState<GetFeedbackResponse | null>(
